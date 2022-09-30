@@ -1,43 +1,236 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="theme-color" content="#000000" />
-    <meta
-      name="description"
-      content="Web site created using create-react-app"
-    />
-    <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png" />
-    <!--
-      manifest.json provides metadata used when your web app is installed on a
-      user's mobile device or desktop. See https://developers.google.com/web/fundamentals/web-app-manifest/
-    -->
-    <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
-    <!--
-      Notice the use of %PUBLIC_URL% in the tags above.
-      It will be replaced with the URL of the `public` folder during the build.
-      Only files inside the `public` folder can be referenced from the HTML.
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta name="description" content="Web site created using create-react-app"/>        
+    <title>Inventory App</title>
 
-      Unlike "/favicon.ico" or "favicon.ico", "%PUBLIC_URL%/favicon.ico" will
-      work correctly both with client-side routing and a non-root public URL.
-      Learn how to configure a non-root public URL by running `npm run build`.
-    -->
-    <title>React App</title>
-  </head>
-  <body>
-    <noscript>You need to enable JavaScript to run this app.</noscript>
-    <div id="root"></div>
-    <!--
-      This HTML file is a template.
-      If you open it directly in the browser, you will see an empty page.
+    <style>
+        *, *::after, *::before {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        html, body {
+            font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+            background-color: #9ACFFD;
+            color: #1B1B1B;
+        }
 
-      You can add webfonts, meta tags, or analytics to this file.
-      The build step will place the bundled scripts into the <body> tag.
+        #app-container {
+            margin: 32px;
+            display: flex;
+            justify-content: space-around;
+            align-items: flex-start;
+            flex-wrap: nowrap;
+        }
 
-      To begin the development, run `npm start` or `yarn start`.
-      To create a production bundle, use `npm run build` or `yarn build`.
-    -->
-  </body>
+        #menu {
+            flex-basis: 20%;
+            margin: 0 12px;
+        }
+
+        #main-container {
+            flex-basis: 80%;
+            margin: 0 12px;
+        }
+
+        #main-title {
+            padding: 8px;
+        }
+
+        #main-content {
+            margin-top: 16px;
+        }
+
+        #category-filters {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        #status {
+            padding: 2px 8px;
+            font-size: 14px;
+            border: 1px solid #aaa;
+            border-radius: 5px;
+        }
+
+        #status:focus {
+            outline: none;
+        }
+
+        #refresh-button {
+            padding: 4px 8px;
+            font-size: 14px;
+            border: 1px solid #0c3ca5;
+            border-radius: 5px;
+            background-color: #0d50e0;
+            color: #F2F2F2;
+        }
+
+        table {
+            width: 100%;
+            margin-top: 16px;
+            border-collapse: collapse;
+        }
+
+        table td, table th {
+            border: 1px solid #DDD;
+            padding: 8px;
+        }
+
+        table tr:nth-child(even) {
+            background-color: #F2F2F2;
+        }
+
+        table tr:nth-child(odd) {
+            background-color: #DDD;
+        }
+
+        table tr:hover {
+            background-color: #DDD;
+        }
+
+        table th {
+            padding: 12px 8px;
+            text-align: left;
+            background-color: #078a5a;
+            color: #F2F2F2;
+        }
+
+        .button {
+            padding: 4px 8px;
+            font-size: 12px;
+            border: 1px solid #CCC;
+            border-radius: 5px;
+        }
+
+        .details-button {
+            background-color: #e9e51f;
+        }
+
+        .activate-button {
+            background-color: #41a6ff;
+        }
+
+        .inactivate-button {
+            background-color: #ee6728;
+        }
+
+        #menu-group-container {
+            padding: 12px 4px;
+        }
+
+        .menu-group {
+            margin: 16px 0;
+        }
+
+        .menu-group-title {
+            font-size: 16px;
+            margin-bottom: 8px;
+        }
+
+        .menu-group-item {
+            list-style: none;
+            margin-left: 4px;
+            margin-bottom: 4px;
+        }
+
+        
+        .menu-group-item-link {
+            text-decoration: none;
+            color: #1B1B1B;
+        }
+
+        .menu-group-item-link:hover {
+            text-decoration: underline;
+        }
+
+    </style>
+
+    </head>
+    <body>
+        <div id="root">
+            <div id="app-container">
+                <aside id="menu">
+                    <h1>Menu</h1>
+                    <div id="menu-group-container">
+                        <div class="menu-group">
+                            <h3 class="menu-group-title">Categories</h3>
+                            <ul class="menu-group-content">
+                                <li class="menu-group-item">
+                                    <a class="menu-group-item-link" href="#categories-list">Categories List</a>
+                                </li>
+                                <li class="menu-group-item">
+                                    <a class="menu-group-item-link" href="#new-category">New Category</a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="menu-group">
+                            <h3 class="menu-group-title">Items</h3>
+                            <ul class="menu-group-content">
+                                <li class="menu-group-item">
+                                    <a class="menu-group-item-link" href="#categories-list">Items List</a>
+                                </li>
+                                <li class="menu-group-item">
+                                    <a class="menu-group-item-link" href="#new-category">New Item</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </aside>
+                <main id="main-container">
+                    <h1 id="main-title">Category List</h1>
+                    <div id="main-content">
+                        <div id="category-list">
+                            <div id="category-filters">
+                                <select id="status">
+                                    <option value="true">Active</option>
+                                    <option value="false">Inactive</option>
+                                </select>
+                                <button id="refresh-button">Refresh</button>
+                            </div>
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>Name</th>
+                                        <th>Description</th>
+                                        <th>Status</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>1</td>
+                                        <td>Category 1</td>
+                                        <td>This is a description for category with id 1</td>
+                                        <td>Active</td>
+                                        <td>
+                                            <button class="button details-button">Details</button>
+                                            <button class="button inactivate-button">Inactivate</button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>2</td>
+                                        <td>Category 2</td>
+                                        <td>This is a description for category with id 2</td>
+                                        <td>Inactive</td>
+                                        <td>
+                                            <button class="button details-button">Details</button>
+                                            <button class="button activate-button">Activate</button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </main>
+            </div>
+        </div>
+        <noscript>You need to enable JavaScript to run this app.</noscript>
+    </body>
 </html>
