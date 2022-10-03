@@ -106,6 +106,7 @@
             font-size: 12px;
             border: 1px solid #CCC;
             border-radius: 5px;
+            cursor: pointer;
         }
 
         .details-button {
@@ -211,13 +212,116 @@
             margin-right: 16px;
         }
 
+        .loader-container {
+            width: 100%;
+            min-height: 90vh;
+            position: absolute;
+            background-color: rgba(255, 255, 255, 0.3);
+            z-index: 100;
+        }
 
+        .loader {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 48px;
+            height: 48px;
+            border: 5px solid #FFF;
+            border-bottom-color: transparent;
+            border-radius: 50%;
+            animation: rotation 1s linear infinite;
+        }
+
+        @keyframes rotation {
+            0% {
+                transform: translate(-48px, -48px) rotate(0deg);
+            }
+            100% {
+                transform: translate(-48px, -48px) rotate(360deg);
+            }
+        }
+
+        .modal {
+            width: 100%;
+            min-height: 90vh;
+            position: absolute;
+            background-color: rgba(0, 0, 0, 0.6);
+            z-index: 50;
+        }
+
+        .modal-container {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            border: 1px solid #CCC;
+            border-radius: 10px;
+            transform: translate(-100%, -100%);
+            overflow: hidden;
+        }
+
+        .modal-title {
+            display: flex;
+            flex-direction: row;
+            flex-wrap: nowrap;
+            align-items: center;
+            justify-content: space-between;
+            background-color: #0c3ca5;
+            padding: 16px;
+            border-bottom: 1px solid #CCC;
+        }
+
+        .modal-content {
+            background-color: white;
+            display: flex;
+            flex-direction: column;
+            padding: 16px;
+            border-bottom: 1px solid #CCC;
+        }
+
+        .modal-footer {
+            display: flex;
+            flex-direction: row;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-around;
+            padding: 16px;
+            background-color: #41a6ff;
+        }
+
+        .modal-close-button {
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        .modal-close-button:hover {
+            cursor: pointer;
+        }
 
     </style>
 
     </head>
     <body>
         <div id="root">
+            <div class="loader-container" style="display: none;">
+                <span class="loader"></span>
+            </div>
+            <div class="modal" style="display: none;">
+                <div class="modal-container">
+                    <div class="modal-title">
+                        <h4>Set quantity</h4>
+                        <span class="modal-close-button">&times;</span>
+                    </div>
+                    <form class="modal-content">
+                        <label for="item-quantity" class="form-label">Quantity</label>
+                        <input id="item-quantity" name="item-quantity" class="form-input" type="number">
+                        <span id="item-quantity-error" name="item-quantity-error" class="form-span-error">Quantity error</span>
+                    </form>
+                    <div class="modal-footer">
+                        <button class="button details-button">Update</button>
+                        <button class="button inactivate-button">Close</button>
+                    </div>
+                </div>
+            </div>
             <div id="app-container">
                 <aside id="menu">
                     <h1>Menu</h1>
