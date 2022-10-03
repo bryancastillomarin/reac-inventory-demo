@@ -41,7 +41,7 @@
             padding: 8px;
         }
 
-        #main-content {
+        .main-content {
             margin-top: 16px;
         }
 
@@ -51,14 +51,14 @@
             align-items: center;
         }
 
-        #status {
+        .selector {
             padding: 2px 8px;
             font-size: 14px;
             border: 1px solid #aaa;
             border-radius: 5px;
         }
 
-        #status:focus {
+        .selector:focus {
             outline: none;
         }
 
@@ -120,6 +120,14 @@
             background-color: #ee6728;
         }
 
+        .quantity-button {
+            background-color: #28ee49;
+        }
+
+        .delete-button {
+            background-color: rgb(243, 86, 86);
+        }
+
         #menu-group-container {
             padding: 12px 4px;
         }
@@ -148,6 +156,62 @@
         .menu-group-item-link:hover {
             text-decoration: underline;
         }
+
+
+        /*form*/
+
+        .form {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            margin: 12px;
+        }
+
+        .form-label {
+            font-size: 20px;
+            font-weight: bold;
+            margin-bottom: 8px;
+        }
+
+        .form-input {
+            padding: 6px 8px;
+            width: 70%;
+            font-size: 14px;
+            margin-bottom: 8px;
+        }
+
+        .form-selector {
+            padding: 2px 8px;
+            width: 70%;
+            margin-bottom: 8px;
+        }
+
+        .form-input:focus {
+            outline: none;
+        }
+
+        .form-span-error {
+            color: red;
+            font-weight: bold;
+            font-size: 12px;
+        }
+
+        .form-actions {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: flex-start;
+        }
+
+        .form-button {
+            margin-right: 16px;
+        }
+
+
 
     </style>
 
@@ -183,8 +247,8 @@
                     </div>
                 </aside>
                 <main id="main-container">
-                    <h1 id="main-title">Category List</h1>
-                    <div id="main-content">
+                    <h1 id="main-title" style="display: none;">Category List</h1>
+                    <div class="main-content" style="display: none;">
                         <div id="category-list">
                             <div id="category-filters">
                                 <select id="status">
@@ -228,6 +292,152 @@
                             </table>
                         </div>
                     </div>
+                    <h1 id="main-title" style="display: none;">New category</h1>
+                    <form class="form" style="display: none;">
+                        <div class="form-group">
+                            <label for="category-name" class="form-label">Name</label>
+                            <input id="category-name" name="category-name" class="form-input" type="text">
+                            <span id="category-name-error" name="category-name-error" class="form-span-error">Name error</span>
+                        </div>
+                        <div class="form-group">
+                            <label for="category-description" class="form-label">Description</label>
+                            <input id="category-description" name="category-description" class="form-input" type="text">
+                            <span id="category-description-error" name="category-description-error" class="form-span-error">Description error</span>
+                        </div>
+                        <div class="form-actions">
+                            <button class="form-button button details-button">
+                                Create
+                            </button>
+                            <button class="form-button button details-button">
+                                Update
+                            </button>
+                            <button class="form-button button activate-button">
+                                Activate
+                            </button>
+                            <button class="form-button button inactivate-button">
+                                Inactivate
+                            </button>
+                        </div>
+                    </form>
+                    <h1 id="main-title" style="display: none;">Category List</h1>
+                    <div class="main-content" style="display: none;">
+                        <div id="category-list">
+                            <div id="category-filters">
+                                <select class="selector">
+                                    <option value="true">Active</option>
+                                    <option value="false">Inactive</option>
+                                </select>
+                                <select class="selector">
+                                    <option value="0">Category</option>
+                                    <option value="1">Category 1</option>
+                                    <option value="2">Category 2</option>
+                                    <option value="3">Category 3</option>
+                                    <option value="4">Category 4</option>
+                                    <option value="5">Category 5</option>
+                                    <option value="6">Category 6</option>
+                                    <option value="7">Category 7</option>
+                                    <option value="8">Category 8</option>
+                                </select>
+                                <button id="refresh-button">Refresh</button>
+                            </div>
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>Category</th>
+                                        <th>Name</th>
+                                        <th>Description</th>
+                                        <th>Quantity</th>
+                                        <th>Status</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>1</td>
+                                        <td>1</td>
+                                        <td>Item 1</td>
+                                        <td>This is a description for item with id 1</td>
+                                        <td>100</td>
+                                        <td>Active</td>
+                                        <td>
+                                            <button class="button details-button">Details</button>
+                                            <button class="button inactivate-button">Inactivate</button>
+                                            <button class="button quantity-button">Set Quantity</button>
+                                            <button class="button delete-button">Delete</button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>2</td>
+                                        <td>1</td>
+                                        <td>Item 2</td>
+                                        <td>This is a description for item with id 2</td>
+                                        <td>100</td>
+                                        <td>Inactive</td>
+                                        <td>
+                                            <button class="button details-button">Details</button>
+                                            <button class="button activate-button">Activate</button>
+                                            <button class="button quantity-button">Set Quantity</button>
+                                            <button class="button delete-button">Delete</button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <h1 id="main-title">New category</h1>
+                    <form class="form">
+                        <div class="form-group form-group-row">
+                            <label for="item-category-name" class="form-label">Category</label>
+                            <select id="item-category-name" name="item-category-name" class="form-selector selector">
+                                <option value="0">Select Category</option>
+                                <option value="1">Category 1</option>
+                                <option value="2">Category 2</option>
+                                <option value="3">Category 3</option>
+                                <option value="4">Category 4</option>
+                                <option value="5">Category 5</option>
+                                <option value="6">Category 6</option>
+                                <option value="7">Category 7</option>
+                                <option value="8">Category 8</option>
+                            </select>
+                            <span id="item-category-name-error" name="item-category-name-error" class="form-span-error">Category error</span>
+                        </div>
+                        <div class="form-group form-group-row">
+                            <label for="item-quantity" class="form-label">Quantity</label>
+                            <input id="item-quantity" name="item-quantity" class="form-input" type="number">
+                            <span id="item-quantity-error" name="item-quantity-error" class="form-span-error">Quantity error</span>
+                        </div>
+                        <div class="form-group">
+                            <label for="item-name" class="form-label">Name</label>
+                            <input id="item-name" name="item-name" class="form-input" type="text">
+                            <span id="item-name-error" name="item-name-error" class="form-span-error">Name error</span>
+                        </div>
+                        <div class="form-group">
+                            <label for="item-description" class="form-label">Description</label>
+                            <input id="item-description" name="item-description" class="form-input" type="text">
+                            <span id="item-description-error" name="item-description-error" class="form-span-error">Description error</span>
+                        </div>
+                        <div class="form-actions">
+                            <button class="form-button button details-button">
+                                Create
+                            </button>
+                            <button class="form-button button details-button">
+                                Update
+                            </button>
+                            <button class="form-button button quantity-button">
+                                Set quantity
+                            </button>
+                            <button class="form-button button activate-button">
+                                Activate
+                            </button>
+                            <button class="form-button button inactivate-button">
+                                Inactivate
+                            </button>
+                            <button class="form-button button delete-button">
+                                Delete
+                            </button>
+                        </div>
+                    </form>
                 </main>
             </div>
         </div>
