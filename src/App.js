@@ -1,6 +1,8 @@
 import Menu from "./Components/Menu"
 import MainContainer from "./Components/MainContainer";
 import styled from "styled-components";
+import Loader from "./Components/Loader";
+import ModalQuantity from "./Components/ModalQuantity";
 
 const AppContainer = styled.div`
     margin: 32px;
@@ -13,6 +15,8 @@ const AppContainer = styled.div`
 const App = () => (
     <AppContainer>
         <Menu />
+        {/* <Loader /> */}
+        {/* <ModalQuantity /> */}
         <MainContainer />
     </AppContainer>
 );

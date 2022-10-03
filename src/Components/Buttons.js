@@ -16,6 +16,7 @@ export const RefreshButton = styled.button`
     border-radius: 5px;
     background-color: #0d50e0;
     color: #F2F2F2;
+    cursor: pointer;
 `;
 
 export const DetailsButton = styled(Button)`
