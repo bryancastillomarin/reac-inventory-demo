@@ -14,13 +14,13 @@ const MainTitle = styled.h1`
     padding: 8px;
 `;
 
-const MainContainer = () =>(
+const MainContainer = ({ title }) =>(
     <Main>
-        <MainTitle id="mainTitle">Title</MainTitle>
+        <MainTitle id="mainTitle">{ title ? title : "Categories List"}</MainTitle>
         <CategoriesContainer />
-        <NewCategoryForm />
+        {/* <NewCategoryForm />
         <ItemsContainer />
-        <NewItemForm />
+        <NewItemForm /> */}
     </Main>
 );
 

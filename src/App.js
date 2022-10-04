@@ -1,8 +1,11 @@
-import Menu from "./Components/Menu"
+import Menu from "./Menu/Menu"
 import MainContainer from "./Components/MainContainer";
 import styled from "styled-components";
 import Loader from "./Components/Loader";
 import ModalQuantity from "./Components/ModalQuantity";
+import { connect } from "react-redux";
+import { getCategoryIsLoading } from "./Category/selectors";
+import { getTitle } from "./Menu/selectors";
 
 const AppContainer = styled.div`
     margin: 32px;
@@ -12,13 +15,18 @@ const AppContainer = styled.div`
     flex-wrap: nowrap;
 `;
 
-const App = () => (
+const App = ({ isLoading, title }) => (
     <AppContainer>
-        <Menu />
-        {/* <Loader /> */}
+        <Menu title={title}/>
+        { isLoading ? <Loader /> : <></>}
         {/* <ModalQuantity /> */}
-        <MainContainer />
+        <MainContainer title={title}/>
     </AppContainer>
 );
 
-export default App;
+const mapStateToProps = state => ({
+    isLoading: getCategoryIsLoading(state),
+    title: getTitle(state)
+});
+
+export default connect(mapStateToProps)(App);

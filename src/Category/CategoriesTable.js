@@ -2,7 +2,7 @@ import React from "react";
 import Table from "../Components/Table";
 import Category from "./Category";
 
-const CategoriesTable = () => (
+const CategoriesTable = ({categories}) => (
     <Table>
         <thead>
             <tr>
@@ -14,10 +14,11 @@ const CategoriesTable = () => (
             </tr>
         </thead>
         <tbody>
-            <Category />
-            <Category />
-            <Category />
-            <Category />
+            {
+                categories.map(category => (
+                    <Category category={category} key={category.id}/>
+                ))
+            }
         </tbody>
     </Table>
 );
