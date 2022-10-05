@@ -22,15 +22,9 @@ export const getCategoriesFiltered = categories => ({
     payload: { categories }
 });
 
-export const ACTIVATE_CATEGORY = "ACTIVATE_CATEGORY";
-export const activateCategory = category => ({
-    type: ACTIVATE_CATEGORY,
-    payload: { category }
-});
-
-export const INACTIVATE_CATEGORY = "INACTIVATE_CATEGORY";
-export const inactivateCategory = category => ({
-    type: INACTIVATE_CATEGORY,
+export const UPDATE_STATUS_CATEGORY = "UPDATE_STATUS_CATEGORY";
+export const updateStatusCategory = category => ({
+    type: UPDATE_STATUS_CATEGORY,
     payload: { category }
 });
 

@@ -3,8 +3,7 @@ import {
     UPDATE_CATEGORY,
     GET_CATEGORY,
     GET_CATEGORIES_FILTERED,
-    ACTIVATE_CATEGORY,
-    INACTIVATE_CATEGORY,
+    UPDATE_STATUS_CATEGORY,
     CATEGORY_ACTION_IN_PROGRESS,
     CATEGORY_ACTION_FAIL,
     NEW_CATEGORY
@@ -52,7 +51,7 @@ export const categoryReducers = (state = initialState, action) => {
                 isLoading: false
             }
         }
-        case ACTIVATE_CATEGORY: {
+        case UPDATE_STATUS_CATEGORY: {
             const { category } = payload;
             return {
                 ...state,
@@ -61,20 +60,10 @@ export const categoryReducers = (state = initialState, action) => {
                         return category;
                     return mappedCategory;
                 }),
-                category: category,
-                isLoading: false
-            }
-        }
-        case INACTIVATE_CATEGORY: {
-            const { category } = payload;
-            return {
-                ...state,
-                categories: state.categories.map(mappedCategory => {
-                    if (mappedCategory.id === category.id)
-                        return category;
-                    return mappedCategory;
-                }),
-                category: category,
+                category: {
+                    ...state.category,
+                    status: category.status
+                },
                 isLoading: false
             }
         }

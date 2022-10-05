@@ -3,9 +3,9 @@ import { Form, FormGroup, FormActions, FormLabel, FormInput, FormSpanError } fro
 import { CreateButton, UpdateButton, ActivateButton, InactivateButton } from "../Components/Buttons";
 import { connect } from "react-redux";
 import { getCategory } from "./selectors";
-import { createCategoryRequest } from "./thunks";
+import { updateStatusCategoryRequest, createCategoryRequest, updateCategoryRequest } from "./thunks";
 
-const NewCategoryForm = ({ category, createCategory }) => {
+const NewCategoryForm = ({ category, createCategory, updateCategory, updateStatusCategory }) => {
     
     const [categoryName, setCategoryName] = useState(category.name);
     const [categoryDescription, setCategoryDescription] = useState(category.description);
@@ -16,6 +16,21 @@ const NewCategoryForm = ({ category, createCategory }) => {
             description: categoryDescription
         });
     };
+
+    const updateCategoryEvent = () => {
+        updateCategory({
+            id: category.id,
+            name: categoryName,
+            description: categoryDescription
+        });
+    }
+
+    const updateStatusCategoryEvent = (status) => {
+        updateStatusCategory({
+            id: category.id,
+            status: status
+        });
+    }
 
     return (
         <Form id={ category.id }>
@@ -43,9 +58,9 @@ const NewCategoryForm = ({ category, createCategory }) => {
             </FormGroup>
             <FormActions>
                 {category.id === 0 ? <CreateButton onClick={e => {e.preventDefault(); createCategoryEvent();}}>Create</CreateButton> : null}
-                {category.id > 0 ? <UpdateButton>Update</UpdateButton> : null}
-                {category.id > 0 && !category.status ? <ActivateButton>Activate</ActivateButton>: null}
-                {category.id > 0 && category.status ? <InactivateButton>Inactivate</InactivateButton> : null}
+                {category.id > 0 ? <UpdateButton onClick={e => {e.preventDefault(); updateCategoryEvent();}}>Update</UpdateButton> : null}
+                {category.id > 0 && !category.status ? <ActivateButton onClick={e => {e.preventDefault(); updateStatusCategoryEvent(true); }}>Activate</ActivateButton>: null}
+                {category.id > 0 && category.status ? <InactivateButton onClick={e => {e.preventDefault(); updateStatusCategoryEvent(false); }}>Inactivate</InactivateButton> : null}
             </FormActions>
         </Form>
     );
@@ -56,7 +71,9 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-    createCategory: category => dispatch(createCategoryRequest(category))
+    createCategory: category => dispatch(createCategoryRequest(category)),
+    updateCategory: category => dispatch(updateCategoryRequest(category)),
+    updateStatusCategory: category => dispatch(updateStatusCategoryRequest(category))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(NewCategoryForm);

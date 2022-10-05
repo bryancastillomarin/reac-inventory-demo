@@ -3,8 +3,7 @@ import {
     updateCategory,
     getCategory,
     getCategoriesFiltered,
-    activateCategory,
-    inactivateCategory,
+    updateStatusCategory,
     categoryActionInProgress,
     categoryActionFail,
     newCategory
@@ -42,6 +41,53 @@ export const createCategoryRequest = (category) => async (dispatch) => {
         dispatch(categoryActionFail());
     }
 };
+
+export const updateCategoryRequest = (category) => async (dispatch) => {
+    try {
+        dispatch(categoryActionInProgress());
+        const body = JSON.stringify(category);
+        const response = await fetch("http://localhost:8080/api/category", {
+            headers: {
+                "Content-Type": "application/json"
+            },
+            method: "put",
+            body
+        });
+        const updatedCategory = await response.json();
+        dispatch(updateCategory(updatedCategory));
+    } catch(error) {
+        dispatch(categoryActionFail);
+    }
+}
+
+export const updateStatusCategoryRequest = (category) => async (dispatch) => {
+    try {
+        dispatch(categoryActionInProgress());
+        const body = JSON.stringify(category);
+        const response = await fetch("http://localhost:8080/api/category/status", {
+            headers: {
+                "Content-Type": "application/json"
+            },
+            method: "PATCH",
+            body
+        });
+        const updatedCategory = await response.json();
+        dispatch(updateStatusCategory(updatedCategory));
+    } catch(error) {
+        dispatch(categoryActionFail);
+    }
+}
+
+export const getCategoryRequest = (id) => async (dispatch) => {
+    try {
+        dispatch(categoryActionInProgress());
+        const response = await fetch(`http://localhost;8080/api/category/details/${id}`);
+        const category = await response.json();
+        dispatch(getCategory(category));
+    } catch(error) {
+        dispatch(categoryActionFail());
+    }
+}
 
 export const openNewCategoryForm = () => dispatch => {
     dispatch(newCategory());
