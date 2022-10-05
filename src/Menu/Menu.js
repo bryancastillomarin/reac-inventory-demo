@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
-import { changeMainTitle } from "./thunks";
+import { changeMainTitle, newCategoryForm } from "./thunks";
 import { connect } from "react-redux";
 
 const MenuContainer = styled.aside`
@@ -41,9 +41,13 @@ const MenuGroupItemLink = styled.a`
     }
 `;
 
+export const TITLE_CATEGORIES_LIST = "Categories List";
+export const TITLE_CATEGORY = "Category";
+export const TITLE_ITEMS_LIST = "Items List";
+export const TITLE_ITEM = "Item";
 
 
-const Menu = ({ changeTitle }) => {
+const Menu = ({ changeTitle, newCategory }) => {
     const [title, setTitle] = useState("");
     useEffect(() => {
         changeTitle(title)
@@ -60,7 +64,7 @@ const Menu = ({ changeTitle }) => {
                                 role="link"
                                 aria-disabled="true"
                                 onClick={e => {
-                                    setTitle("Categories List");
+                                    setTitle(TITLE_CATEGORIES_LIST);
                                 }}
                             >
                                 Categories List
@@ -71,7 +75,8 @@ const Menu = ({ changeTitle }) => {
                                 role="link"
                                 aria-disabled="true"
                                 onClick={e => {
-                                    setTitle("Category");
+                                    setTitle(TITLE_CATEGORY);
+                                    newCategory();
                                 }}
                             >
                                 New Category
@@ -87,7 +92,7 @@ const Menu = ({ changeTitle }) => {
                                 role="link"
                                 aria-disabled="true"
                                 onClick={e => {
-                                    setTitle("Items List");
+                                    setTitle(TITLE_ITEMS_LIST);
                                 }}
                             >
                                 Items List
@@ -98,7 +103,7 @@ const Menu = ({ changeTitle }) => {
                                 role="link"
                                 aria-disabled="true"
                                 onClick={e => {
-                                    setTitle("Item");
+                                    setTitle(TITLE_ITEM);
                                 }}
                             >
                                 New Item
@@ -112,7 +117,8 @@ const Menu = ({ changeTitle }) => {
 }
 
 const mapDispatchToProps = dispatch => ({
-    changeTitle: title => dispatch(changeMainTitle(title))
+    changeTitle: title => dispatch(changeMainTitle(title)),
+    newCategory: () => dispatch(newCategoryForm())
 });
 
 export default connect(null, mapDispatchToProps)(Menu);

@@ -6,10 +6,15 @@ import {
     ACTIVATE_CATEGORY,
     INACTIVATE_CATEGORY,
     CATEGORY_ACTION_IN_PROGRESS,
-    CATEGORY_ACTION_FAIL
+    CATEGORY_ACTION_FAIL,
+    NEW_CATEGORY
 } from "./actions"
 
-const initialState = { categories: [], category: {}, isLoading: false };
+const category = {
+    id: 0, name: "", description: "", status: null
+};
+
+const initialState = { categories: [], category, isLoading: false };
 
 export const categoryReducers = (state = initialState, action) => {
     const { type, payload } = action;
@@ -69,6 +74,13 @@ export const categoryReducers = (state = initialState, action) => {
                         return category;
                     return mappedCategory;
                 }),
+                category: category,
+                isLoading: false
+            }
+        }
+        case NEW_CATEGORY: {
+            return {
+                ...state,
                 category: category,
                 isLoading: false
             }

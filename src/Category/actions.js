@@ -43,3 +43,8 @@ export const CATEGORY_ACTION_FAIL = "CATEGORY_ACTION_FAIL";
 export const categoryActionFail = () => ({
     type: CATEGORY_ACTION_FAIL
 });
+
+export const NEW_CATEGORY = "NEW_CATEGORY";
+export const newCategory = () => ({
+    type: NEW_CATEGORY
+});
