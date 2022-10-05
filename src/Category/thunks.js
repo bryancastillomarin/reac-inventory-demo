@@ -9,6 +9,9 @@ import {
     newCategory
 } from "./actions";
 
+import { changeTitle } from "../Menu/actions";
+import { TITLE_CATEGORY } from "../Menu/Menu";
+
 export const getCategoriesFilteredRequest = (state = true) => async (dispatch) => {
     try {
         dispatch(categoryActionInProgress());
@@ -81,9 +84,10 @@ export const updateStatusCategoryRequest = (category) => async (dispatch) => {
 export const getCategoryRequest = (id) => async (dispatch) => {
     try {
         dispatch(categoryActionInProgress());
-        const response = await fetch(`http://localhost;8080/api/category/details/${id}`);
+        const response = await fetch(`http://localhost:8080/api/category/details/${id}`);
         const category = await response.json();
         dispatch(getCategory(category));
+        dispatch(changeTitle(TITLE_CATEGORY));
     } catch(error) {
         dispatch(categoryActionFail());
     }

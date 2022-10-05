@@ -9,11 +9,11 @@ import {
     NEW_CATEGORY
 } from "./actions"
 
-const category = {
+const initialCategory = {
     id: 0, name: "", description: "", status: null
 };
 
-const initialState = { categories: [], category, isLoading: false };
+const initialState = { categories: [], initialCategory, isLoading: false };
 
 export const categoryReducers = (state = initialState, action) => {
     const { type, payload } = action;
@@ -55,11 +55,7 @@ export const categoryReducers = (state = initialState, action) => {
             const { category } = payload;
             return {
                 ...state,
-                categories: state.categories.map(mappedCategory => {
-                    if (mappedCategory.id === category.id)
-                        return category;
-                    return mappedCategory;
-                }),
+                categories: state.categories.filter(filtered => filtered.id !== category.id),
                 category: {
                     ...state.category,
                     status: category.status
@@ -70,7 +66,7 @@ export const categoryReducers = (state = initialState, action) => {
         case NEW_CATEGORY: {
             return {
                 ...state,
-                category: category,
+                category: {...initialCategory},
                 isLoading: false
             }
         }

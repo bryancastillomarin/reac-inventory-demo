@@ -48,10 +48,6 @@ export const TITLE_ITEM = "Item";
 
 
 const Menu = ({ changeTitle, newCategory }) => {
-    const [title, setTitle] = useState("");
-    useEffect(() => {
-        changeTitle(title)
-    }, [title]);
     return (
         <MenuContainer>
             <MenuTitle>Menu</MenuTitle>
@@ -64,7 +60,7 @@ const Menu = ({ changeTitle, newCategory }) => {
                                 role="link"
                                 aria-disabled="true"
                                 onClick={e => {
-                                    setTitle(TITLE_CATEGORIES_LIST);
+                                    changeTitle(TITLE_CATEGORIES_LIST);
                                 }}
                             >
                                 Categories List
@@ -75,7 +71,7 @@ const Menu = ({ changeTitle, newCategory }) => {
                                 role="link"
                                 aria-disabled="true"
                                 onClick={e => {
-                                    setTitle(TITLE_CATEGORY);
+                                    changeTitle(TITLE_CATEGORY);
                                     newCategory();
                                 }}
                             >
@@ -92,7 +88,7 @@ const Menu = ({ changeTitle, newCategory }) => {
                                 role="link"
                                 aria-disabled="true"
                                 onClick={e => {
-                                    setTitle(TITLE_ITEMS_LIST);
+                                    changeTitle(TITLE_ITEMS_LIST);
                                 }}
                             >
                                 Items List
@@ -103,7 +99,7 @@ const Menu = ({ changeTitle, newCategory }) => {
                                 role="link"
                                 aria-disabled="true"
                                 onClick={e => {
-                                    setTitle(TITLE_ITEM);
+                                    changeTitle(TITLE_ITEM);
                                 }}
                             >
                                 New Item

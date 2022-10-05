@@ -13,7 +13,7 @@ const MainContent = styled.div`
     margin-top: 16px;
 `;
 
-const CategoriesContainer = ({ getCategoriesFiltered, categories}) => {
+const CategoriesContainer = ({ getCategoriesFiltered}) => {
     useEffect(() => {
         getCategoriesFiltered();
     }, []);
@@ -32,17 +32,13 @@ const CategoriesContainer = ({ getCategoriesFiltered, categories}) => {
                     Refresh
                 </RefreshButton>
             </FiltersContainer>
-            <CategoriesTable categories={categories}/>
+            <CategoriesTable />
         </MainContent>
     );
 };
-
-const mapStateToProps = state => ({
-    categories: getCategories(state)
-});
 
 const mapDispatchToProps = dispatch => ({
     getCategoriesFiltered: state => dispatch(getCategoriesFilteredRequest(state))
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(CategoriesContainer);
+export default connect(null, mapDispatchToProps)(CategoriesContainer);
