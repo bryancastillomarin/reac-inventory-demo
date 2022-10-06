@@ -8,7 +8,8 @@ import {
     ITEM_ACTION_IN_PROGRESS,
     ITEM_ACTION_FAIL,
     NEW_ITEM,
-    GET_ACTIVE_CATEGORIES
+    GET_ACTIVE_CATEGORIES,
+    DELETE_ITEM
 } from "./actions";
 
 const initialItem = {
@@ -80,7 +81,7 @@ export const itemReducers = (state = initialState, action) => {
                     quantity: item.quantity
                 },
                 isLoading: false,
-                modal: true
+                modal: false
             };
         }
         case NEW_ITEM: {
@@ -101,6 +102,15 @@ export const itemReducers = (state = initialState, action) => {
                 isLoading: true,
                 modal: false
             };
+        }
+        case DELETE_ITEM: {
+            const { item } = payload;
+            return {
+                ...state,
+                items: state.items.filter(filtered => filtered.id !== item.id),
+                isLoading: false,
+                modal: false
+            }
         }
         case ITEM_ACTION_IN_PROGRESS:
             return {

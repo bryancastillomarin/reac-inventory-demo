@@ -55,3 +55,9 @@ export const getActiveCategories = (categories) => ({
     type: GET_ACTIVE_CATEGORIES,
     payload: { categories }
 });
+
+export const DELETE_ITEM = "DELETE_ITEM";
+export const deleteItem = (item) => ({
+    type: DELETE_ITEM,
+    payload: { item }
+});

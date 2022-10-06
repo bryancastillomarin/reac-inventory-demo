@@ -8,7 +8,8 @@ import {
     itemActionInProgress,
     itemActionFail,
     newItem,
-    getActiveCategories
+    getActiveCategories,
+    deleteItem
 } from "./actions";
 
 import { changeTitle } from "../Menu/actions";
@@ -42,4 +43,58 @@ const getActiveCategoriesRequest = () => async (dispatch) => {
     } catch(error) {
         dispatch(itemActionFail());
     }
-}
+};
+
+export const updateStatusItemRequest = (item) => async (dispatch) => {
+    try {
+        dispatch(itemActionInProgress());
+        const body = JSON.stringify(item);
+        const response = await fetch("http://localhost:8080/api/item/status", {
+            headers: {
+                "Content-Type": "application/json"
+            },
+            method: "PATCH",
+            body
+        });
+        const updatedItem = await response.json();
+        dispatch(updateStatusItem(updatedItem));
+    } catch(error) {
+        dispatch(itemActionFail());
+    }
+};
+
+export const updateQuantityItemRequest = (item) => async (dispatch) => {
+    try {
+        dispatch(itemActionInProgress());
+        const body = JSON.stringify(item);
+        const response = await fetch("http://localhost:8080/api/item/quantity", {
+            headers: {
+                "Content-Type": "application/json"
+            },
+            method: "PATCH",
+            body
+        });
+        const updatedItem = await response.json();
+        dispatch(updateQuantityItem(updatedItem));
+    } catch(error) {
+        dispatch(itemActionFail());
+    }
+};
+
+export const deleteItemRequest = (item) => async (dispatch) => {
+    try {
+        dispatch(itemActionInProgress());
+        const body = JSON.stringify(item);
+        const response = await fetch("http://localhost:8080/api/item", {
+            headers: {
+                "Content-Type": "application/json"
+            },
+            method: "DELETE",
+            body
+        });
+        const deletedItem = await response.json();
+        dispatch(deleteItem(deletedItem));
+    } catch(error) {
+        dispatch(itemActionFail());
+    }
+};

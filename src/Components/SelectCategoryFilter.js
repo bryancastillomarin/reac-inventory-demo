@@ -5,7 +5,6 @@ import { connect } from "react-redux";
 
 const SelectCategoryFilter = ({ categories, getItemsFiltered }) => (
     <Selector id="itemsFilterCategory" onChange={e => {
-            console.log(e.target.value);
             const status = document.getElementById("itemsFilterStatus").value;
             const idCategory = e.target.value;
             getItemsFiltered({ category: { id: idCategory }, status: status});
