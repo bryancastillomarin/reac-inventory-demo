@@ -23,6 +23,10 @@ const Item = ({ item, onUpdateStatusPressed, onUpdateQuantityPressed, onDeletePr
         });
     }
 
+    const updateQuantityEvent = () => {
+        onUpdateQuantityPressed(item);
+    }
+
     return (
         <tr data-id={item.id} data-id-category={item.category.id}>
             <td>{item.id}</td>
@@ -35,7 +39,7 @@ const Item = ({ item, onUpdateStatusPressed, onUpdateQuantityPressed, onDeletePr
                 <DetailsButton>Details</DetailsButton>
                 {!item.status ? <ActivateButton onClick={e => {e.preventDefault(); updateStatusEvent(true);}}>Activate</ActivateButton> : null}
                 {item.status ? <InactivateButton onClick={e => {e.preventDefault(); updateStatusEvent(false);}}>Inactivate</InactivateButton> : null}
-                {item.status ? <QuantityButton>Set Quantity</QuantityButton> : null}
+                {item.status ? <QuantityButton onClick={e => {e.preventDefault(); updateQuantityEvent();}}>Set Quantity</QuantityButton> : null}
                 {item.status ? <DeleteButton onClick={e => {e.preventDefault(); deleteEvent();}}>Delete</DeleteButton> : null}
             </TableDataNoWrap>
         </tr>

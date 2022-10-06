@@ -9,7 +9,9 @@ import {
     itemActionFail,
     newItem,
     getActiveCategories,
-    deleteItem
+    deleteItem,
+    showQuantityItemModal,
+    hideQuantityItemModal
 } from "./actions";
 
 import { changeTitle } from "../Menu/actions";
@@ -98,3 +100,11 @@ export const deleteItemRequest = (item) => async (dispatch) => {
         dispatch(itemActionFail());
     }
 };
+
+export const showQuantityItemModalAction = (item) => (dispatch) => {
+    dispatch(showQuantityItemModal(item));
+};
+
+export const hideQuantityItemModalAction = () => (dispatch) => {
+    dispatch(hideQuantityItemModal());
+}

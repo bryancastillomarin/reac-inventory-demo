@@ -61,3 +61,14 @@ export const deleteItem = (item) => ({
     type: DELETE_ITEM,
     payload: { item }
 });
+
+export const SHOW_QUANTITY_ITEM_MODAL = "SHOW_QUANTITY_ITEM_MODAL";
+export const showQuantityItemModal = (item) => ({
+    type: SHOW_QUANTITY_ITEM_MODAL,
+    payload: { item }
+});
+
+export const HIDE_QUANTITY_ITEM_MODAL = "HIDE_QUANTITY_ITEM_MODAL";
+export const hideQuantityItemModal = () => ({
+    type: HIDE_QUANTITY_ITEM_MODAL
+});

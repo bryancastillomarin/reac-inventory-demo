@@ -9,7 +9,9 @@ import {
     ITEM_ACTION_FAIL,
     NEW_ITEM,
     GET_ACTIVE_CATEGORIES,
-    DELETE_ITEM
+    DELETE_ITEM,
+    SHOW_QUANTITY_ITEM_MODAL,
+    HIDE_QUANTITY_ITEM_MODAL
 } from "./actions";
 
 const initialItem = {
@@ -76,6 +78,11 @@ export const itemReducers = (state = initialState, action) => {
             const { item } = payload;
             return {
                 ...state,
+                items: state.items.map(mapped => {
+                    if(mapped.id === item.id)
+                        return {...mapped, quantity: item.quantity};
+                    return mapped;
+                }),
                 item: {
                     ...state.item,
                     quantity: item.quantity
@@ -83,6 +90,22 @@ export const itemReducers = (state = initialState, action) => {
                 isLoading: false,
                 modal: false
             };
+        }
+        case SHOW_QUANTITY_ITEM_MODAL: {
+            const { item } = payload;
+            return {
+                ...state,
+                item: item,
+                isLoading: false,
+                modal: true
+            }
+        }
+        case HIDE_QUANTITY_ITEM_MODAL: {
+            return {
+                ...state,
+                isLoading: false,
+                modal: false
+            }
         }
         case NEW_ITEM: {
             const { categories } = payload;

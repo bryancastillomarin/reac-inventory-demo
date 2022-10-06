@@ -1,7 +1,10 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import { FormLabel, FormInput, FormSpanError } from "./FormComponents";
 import { UpdateButton, InactivateButton } from "./Buttons";
+import { connect } from "react-redux";
+import { getItem } from "../Item/selectors";
+import { hideQuantityItemModalAction, updateQuantityItemRequest } from "../Item/thunks";
 
 const Modal = styled.div`
     width: 100%;
@@ -59,24 +62,48 @@ const ModalCloseButton = styled.span`
     }
 `;
 
-const ModalQuantity = () => (
-    <Modal>
-        <ModalContainer>
-            <ModalTitle>
-                <h4>Set Quantity</h4>
-                <ModalCloseButton>&times;</ModalCloseButton>
-            </ModalTitle>
-            <ModalContent>
-                <FormLabel>Quantity</FormLabel>
-                <FormInput type="number"></FormInput>
-                <FormSpanError>Quantity error</FormSpanError>
-            </ModalContent>
-            <ModalFooter>
-                <UpdateButton>Update</UpdateButton>
-                <InactivateButton>Close</InactivateButton>
-            </ModalFooter>
-        </ModalContainer>
-    </Modal>
-);
+const ModalQuantity = ({ item, updateQuantityItem, hideModal }) => {
+    
+    const [quantity, setQuantity] = useState(item.quantity);
+    
+    const updateQuantityItemEvent = (quantity) => {
+        updateQuantityItem({
+            category: {
+                id: item.category.id
+            },
+            id: item.id,
+            quantity: quantity
+        });
+    };
 
-export default ModalQuantity;
+    return (
+        <Modal>
+            <ModalContainer>
+                <ModalTitle>
+                    <h4>Set Quantity</h4>
+                    <ModalCloseButton onClick={e => { e.preventDefault(); hideModal(); }}>&times;</ModalCloseButton>
+                </ModalTitle>
+                <ModalContent>
+                    <FormLabel>Quantity</FormLabel>
+                    <FormInput type="number" value={quantity} onChange={e => {setQuantity(e.target.value);}}></FormInput>
+                    <FormSpanError></FormSpanError>
+                </ModalContent>
+                <ModalFooter>
+                    <UpdateButton onClick={e => { e.preventDefault(); updateQuantityItemEvent(quantity);}}>Update</UpdateButton>
+                    <InactivateButton onClick={e => { e.preventDefault(); hideModal(); }}>Close</InactivateButton>
+                </ModalFooter>
+            </ModalContainer>
+        </Modal>
+    );
+};
+
+const mapStateToProps = state => ({
+    item: getItem(state)
+});
+
+const mapDispatchToProps = dispatch => ({
+    updateQuantityItem: item => dispatch(updateQuantityItemRequest(item)),
+    hideModal: () => dispatch(hideQuantityItemModalAction())
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(ModalQuantity);
