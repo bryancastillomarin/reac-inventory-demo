@@ -1,8 +1,16 @@
 import React from "react";
+import { getItemsFilteredRequest } from "../Item/thunks";
 import Selector from "./Selector";
+import { connect } from "react-redux";
 
-const SelectCategoryFilter = ({ categories }) => (
-    <Selector id="itemsFilterCategory">
+const SelectCategoryFilter = ({ categories, getItemsFiltered }) => (
+    <Selector id="itemsFilterCategory" onChange={e => {
+            console.log(e.target.value);
+            const status = document.getElementById("itemsFilterStatus").value;
+            const idCategory = e.target.value;
+            getItemsFiltered({ category: { id: idCategory }, status: status});
+        }}
+    >
         <option value={0}>All categories</option>
         {
             categories.map(category => (
@@ -12,4 +20,8 @@ const SelectCategoryFilter = ({ categories }) => (
     </Selector>
 );
 
-export default SelectCategoryFilter;
+const mapDispatchToProps = dispatch => ({
+    getItemsFiltered: item => dispatch(getItemsFilteredRequest(item))
+});
+
+export default connect(null, mapDispatchToProps)(SelectCategoryFilter);

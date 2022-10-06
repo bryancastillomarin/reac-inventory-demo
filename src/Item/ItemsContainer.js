@@ -24,7 +24,7 @@ const ItemsContainer = ({ activeCategories, getItemsFiltered }) => {
         <MainContent>
             <FiltersContainer>
                 <SelectStatusFilter id={"itemsFilterStatus"}/>
-                <SelectCategoryFilter categories={activeCategories}/>
+                <SelectCategoryFilter categories={activeCategories} />
                 <RefreshButton
                     onClick={e => {
                             e.preventDefault();

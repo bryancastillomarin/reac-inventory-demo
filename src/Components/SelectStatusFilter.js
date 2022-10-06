@@ -2,12 +2,20 @@ import React, { useEffect, useState } from "react";
 import Selector from "./Selector";
 import { connect } from "react-redux";
 import { getCategoriesFilteredRequest } from "../Category/thunks";
+import { getItemsFilteredRequest } from "../Item/thunks";
 
-const SelectStatusFilter = ({ getCategoriesFiltered, id }) => {
+const SelectStatusFilter = ({ getCategoriesFiltered, id, getItemsFiltered }) => {
     const [selectedOption, setSelectedOption] = useState("true");
     useEffect(() => {
-        getCategoriesFiltered(selectedOption);
-    }, [selectedOption]);
+        if(id === "categoriesFilterStatus"){
+            getCategoriesFiltered(selectedOption);
+        }
+        if(id === "itemsFilterStatus"){
+            const idCategory = document.getElementById("itemsFilterCategory").value;
+            const item = { category: { id: idCategory }, status: selectedOption }
+            getItemsFiltered(item);
+        }
+    });
 
     return (
         <Selector
@@ -25,7 +33,8 @@ const SelectStatusFilter = ({ getCategoriesFiltered, id }) => {
 };
 
 const mapDispatchToProps = dispatch => ({
-    getCategoriesFiltered: state => dispatch(getCategoriesFilteredRequest(state))
+    getCategoriesFiltered: state => dispatch(getCategoriesFilteredRequest(state)),
+    getItemsFiltered : item => dispatch(getItemsFilteredRequest(item))
 });
 
 export default connect(null, mapDispatchToProps)(SelectStatusFilter);

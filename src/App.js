@@ -5,6 +5,7 @@ import Loader from "./Components/Loader";
 import ModalQuantity from "./Components/ModalQuantity";
 import { connect } from "react-redux";
 import { getCategoryIsLoading } from "./Category/selectors";
+import { getItemIsLoading } from "./Item/selectors";
 import { getTitle } from "./Menu/selectors";
 
 const AppContainer = styled.div`
@@ -25,7 +26,7 @@ const App = ({ isLoading, title }) => (
 );
 
 const mapStateToProps = state => ({
-    isLoading: getCategoryIsLoading(state),
+    isLoading: getCategoryIsLoading(state) || getItemIsLoading(state),
     title: getTitle(state)
 });
 

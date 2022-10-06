@@ -23,7 +23,7 @@ export const getItemsFilteredRequest = (item = { category: {id: 0}, status: true
             }
         });
         const items = await response.json();
-        getActiveCategoriesRequest()(dispatch);
+        await getActiveCategoriesRequest()(dispatch);
         dispatch(getItemsFiltered(items));
     } catch(error) {
         dispatch(itemActionFail());
