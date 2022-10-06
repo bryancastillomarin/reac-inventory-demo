@@ -5,7 +5,6 @@ import SelectStatusFilter from "../Components/SelectStatusFilter";
 import CategoriesTable from "./CategoriesTable";
 import { RefreshButton } from "../Components/Buttons";
 
-import { getCategories } from "./selectors";
 import { getCategoriesFilteredRequest } from "./thunks";
 import { connect } from "react-redux";
 

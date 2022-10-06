@@ -2,22 +2,25 @@ import React from "react";
 import TableDataNoWrap from "../Components/TableDataNoWrap";
 import { DetailsButton, ActivateButton, InactivateButton, DeleteButton, QuantityButton } from "../Components/Buttons";
 
-const Item = () => (
-    <tr>
-        <td>2</td>
-        <td>1</td>
-        <td>Item 2</td>
-        <td>This is a description for item with id 2</td>
-        <td>100</td>
-        <td>Inactive</td>
-        <TableDataNoWrap>
-            <DetailsButton>Details</DetailsButton>
-            <ActivateButton>Activate</ActivateButton>
-            <InactivateButton>Inactivate</InactivateButton>
-            <QuantityButton>Set Quantity</QuantityButton>
-            <DeleteButton>Delete</DeleteButton>
-        </TableDataNoWrap>
-    </tr>
-);
+const Item = ({ item }) => {
+    
+    return (
+        <tr data-id={item.id} data-id-category={item.category.id}>
+            <td>{item.id}</td>
+            <td>{item.category.id}</td>
+            <td>{item.name}</td>
+            <td>{item.description}</td>
+            <td>{item.quantity}</td>
+            <td>{item.status ? "Active" : "Inactive"}</td>
+            <TableDataNoWrap>
+                <DetailsButton>Details</DetailsButton>
+                {!item.status ? <ActivateButton>Activate</ActivateButton> : null}
+                {item.status ? <InactivateButton>Inactivate</InactivateButton> : null}
+                {item.status ? <QuantityButton>Set Quantity</QuantityButton> : null}
+                {item.status ? <DeleteButton>Delete</DeleteButton> : null}
+            </TableDataNoWrap>
+        </tr>
+    );
+}
 
 export default Item;

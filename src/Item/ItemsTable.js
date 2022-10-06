@@ -1,8 +1,11 @@
 import React from "react";
 import Table from "../Components/Table";
 import Item from "./Item";
+import { connect } from "react-redux";
 
-const ItemsTable = () => (
+import { getItems } from "./selectors";
+
+const ItemsTable = ({ items }) => (
     <Table>
         <thead>
             <tr>
@@ -16,13 +19,20 @@ const ItemsTable = () => (
             </tr>
         </thead>
         <tbody>
-            <Item />
-            <Item />
-            <Item />
-            <Item />
-            <Item />
+            {
+                items.map(item => (
+                    <Item 
+                        item={item}
+                        key={item.id}
+                    />
+                ))
+            }
         </tbody>
     </Table>
 );
 
-export default ItemsTable;
+const mapStateToProps = state => ({
+    items: getItems(state)
+});
+
+export default connect(mapStateToProps)(ItemsTable);

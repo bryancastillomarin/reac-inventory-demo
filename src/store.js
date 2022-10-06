@@ -1,5 +1,6 @@
 import { legacy_createStore as createStore, combineReducers, applyMiddleware } from "redux";
 import { categoryReducers } from "./Category/reducers";
+import { itemReducers } from "./Item/reducers";
 import { menuReducers } from "./Menu/reducers";
 import { persistReducer } from "redux-persist";
 import storage from "redux-persist/lib/storage";
@@ -8,7 +9,7 @@ import thunk from "redux-thunk";
 import { composeWithDevTools } from "redux-devtools-extension";
 
 const reducers = {
-    categoryReducers, menuReducers
+    categoryReducers, menuReducers, itemReducers
 };
 
 const persistConfig = {
