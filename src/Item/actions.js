@@ -45,9 +45,8 @@ export const itemActionFail = () => ({
 });
 
 export const NEW_ITEM = "NEW_ITEM";
-export const newItem = (categories) => ({
-    type: NEW_ITEM,
-    payload: { categories }
+export const newItem = () => ({
+    type: NEW_ITEM
 });
 
 export const GET_ACTIVE_CATEGORIES = "GET_ACTIVE_CATEGORIES";

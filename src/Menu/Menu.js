@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import styled from "styled-components";
-import { changeMainTitle, newCategoryForm } from "./thunks";
+import { changeMainTitle, newCategoryForm, newItemForm } from "./thunks";
 import { connect } from "react-redux";
 
 const MenuContainer = styled.aside`
@@ -47,7 +47,7 @@ export const TITLE_ITEMS_LIST = "Items List";
 export const TITLE_ITEM = "Item";
 
 
-const Menu = ({ changeTitle, newCategory }) => {
+const Menu = ({ changeTitle, newCategory, newItem }) => {
     return (
         <MenuContainer>
             <MenuTitle>Menu</MenuTitle>
@@ -100,6 +100,7 @@ const Menu = ({ changeTitle, newCategory }) => {
                                 aria-disabled="true"
                                 onClick={e => {
                                     changeTitle(TITLE_ITEM);
+                                    newItem();
                                 }}
                             >
                                 New Item
@@ -114,7 +115,8 @@ const Menu = ({ changeTitle, newCategory }) => {
 
 const mapDispatchToProps = dispatch => ({
     changeTitle: title => dispatch(changeMainTitle(title)),
-    newCategory: () => dispatch(newCategoryForm())
+    newCategory: () => dispatch(newCategoryForm()),
+    newItem: () => dispatch(newItemForm())
 });
 
 export default connect(null, mapDispatchToProps)(Menu);

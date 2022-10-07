@@ -38,7 +38,10 @@ export const itemReducers = (state = initialState, action) => {
             const { item } = payload;
             return {
                 ...state,
-                item: item,
+                item: {
+                    ...item,
+                    quantity: state.item.quantity
+                },
                 isLoading: false,
                 modal: false
             };
@@ -108,10 +111,8 @@ export const itemReducers = (state = initialState, action) => {
             }
         }
         case NEW_ITEM: {
-            const { categories } = payload;
             return {
                 ...state,
-                categories: categories,
                 item: {...initialItem},
                 isLoading: false,
                 modal: false

@@ -3,9 +3,9 @@ import Table from "../Components/Table";
 import Item from "./Item";
 import { connect } from "react-redux";
 import { getItems } from "./selectors";
-import { deleteItemRequest, showQuantityItemModalAction, updateStatusItemRequest } from "./thunks";
+import { deleteItemRequest, showQuantityItemModalAction, updateStatusItemRequest, getItemRequest } from "./thunks";
 
-const ItemsTable = ({ items, updateStatusItem, showQuantityItemModal, deleteItem }) => (
+const ItemsTable = ({ items, updateStatusItem, showQuantityItemModal, deleteItem, getItem }) => (
     <Table>
         <thead>
             <tr>
@@ -27,6 +27,7 @@ const ItemsTable = ({ items, updateStatusItem, showQuantityItemModal, deleteItem
                         onUpdateStatusPressed={updateStatusItem}
                         onUpdateQuantityPressed={showQuantityItemModal}
                         onDeletePressed={deleteItem}
+                        onGetDetailsPressed={getItem}
                     />
                 ))
             }
@@ -42,6 +43,7 @@ const mapDispatchToProps = dispatch => ({
     updateStatusItem: item => dispatch(updateStatusItemRequest(item)),
     deleteItem: item => dispatch(deleteItemRequest(item)),
     showQuantityItemModal: item => dispatch(showQuantityItemModalAction(item)),
+    getItem: item => dispatch(getItemRequest(item))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(ItemsTable);
