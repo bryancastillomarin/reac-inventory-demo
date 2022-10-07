@@ -297,11 +297,32 @@
             cursor: pointer;
         }
 
+        .message-error-container {
+            margin: 20px auto;
+            padding: 15px;
+            width: 80%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background-color: rgb(243, 86, 86);
+        }
+
+        .message-error {
+            font-size: 16px;
+            font-weight: bold;
+        }
+
     </style>
 
     </head>
     <body>
         <div id="root">
+
+            <div id="messageErrorContainer" class="message-error-container">
+                <span class="message-error">Message error</span>
+                <span class="modal-close-button" onclick="hideError()">&times;</span>
+            </div>
+
             <div class="loader-container" style="display: none;">
                 <span class="loader"></span>
             </div>
