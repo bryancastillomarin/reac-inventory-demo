@@ -1,10 +1,10 @@
 {
   "files": {
-    "main.js": "/reac-inventory-demo/static/js/main.e8b9cfe7.js",
+    "main.js": "/reac-inventory-demo/static/js/main.7a68b16f.js",
     "index.html": "/reac-inventory-demo/index.html",
-    "main.e8b9cfe7.js.map": "/reac-inventory-demo/static/js/main.e8b9cfe7.js.map"
+    "main.7a68b16f.js.map": "/reac-inventory-demo/static/js/main.7a68b16f.js.map"
   },
   "entrypoints": [
-    "static/js/main.e8b9cfe7.js"
+    "static/js/main.7a68b16f.js"
   ]
 }
