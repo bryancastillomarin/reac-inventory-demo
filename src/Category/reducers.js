@@ -6,14 +6,15 @@ import {
     UPDATE_STATUS_CATEGORY,
     CATEGORY_ACTION_IN_PROGRESS,
     CATEGORY_ACTION_FAIL,
-    NEW_CATEGORY
+    NEW_CATEGORY,
+    HIDE_ERROR
 } from "./actions"
 
 const initialCategory = {
     id: 0, name: "", description: "", status: null
 };
 
-const initialState = { categories: [], initialCategory, isLoading: false };
+const initialState = { categories: [], initialCategory, isLoading: false, error: "" };
 
 export const categoryReducers = (state = initialState, action) => {
     const { type, payload } = action;
@@ -75,10 +76,19 @@ export const categoryReducers = (state = initialState, action) => {
                 ...state,
                 isLoading: true
             }
-        case CATEGORY_ACTION_FAIL:
+        case CATEGORY_ACTION_FAIL: {
+            const error = payload;
             return {
                 ...state,
-                isLoading: false
+                isLoading: false,
+                error: error
+            }
+        }
+        case HIDE_ERROR: 
+            return {
+                ...state,
+                isLoading: false,
+                error: ""
             }
         default:
             return state;

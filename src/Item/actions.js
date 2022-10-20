@@ -40,8 +40,9 @@ export const itemActionInProgress = () => ({
 });
 
 export const ITEM_ACTION_FAIL = "ITEM_ACTION_FAIL";
-export const itemActionFail = () => ({
-    type: ITEM_ACTION_FAIL
+export const itemActionFail = (error) => ({
+    type: ITEM_ACTION_FAIL,
+    payload: error
 });
 
 export const NEW_ITEM = "NEW_ITEM";
@@ -70,4 +71,9 @@ export const showQuantityItemModal = (item) => ({
 export const HIDE_QUANTITY_ITEM_MODAL = "HIDE_QUANTITY_ITEM_MODAL";
 export const hideQuantityItemModal = () => ({
     type: HIDE_QUANTITY_ITEM_MODAL
+});
+
+export const HIDE_ERROR = "HIDE_ERROR";
+export const hideError = () => ({
+    type: HIDE_ERROR
 });

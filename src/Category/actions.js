@@ -34,11 +34,17 @@ export const categoryActionInProgress = () => ({
 });
 
 export const CATEGORY_ACTION_FAIL = "CATEGORY_ACTION_FAIL";
-export const categoryActionFail = () => ({
-    type: CATEGORY_ACTION_FAIL
+export const categoryActionFail = (error) => ({
+    type: CATEGORY_ACTION_FAIL,
+    payload: error
 });
 
 export const NEW_CATEGORY = "NEW_CATEGORY";
 export const newCategory = () => ({
     type: NEW_CATEGORY
+});
+
+export const HIDE_ERROR = "HIDE_ERROR";
+export const hideError = () => ({
+    type: HIDE_ERROR
 });

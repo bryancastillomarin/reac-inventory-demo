@@ -11,7 +11,8 @@ import {
     GET_ACTIVE_CATEGORIES,
     DELETE_ITEM,
     SHOW_QUANTITY_ITEM_MODAL,
-    HIDE_QUANTITY_ITEM_MODAL
+    HIDE_QUANTITY_ITEM_MODAL,
+    HIDE_ERROR
 } from "./actions";
 
 const initialItem = {
@@ -19,7 +20,7 @@ const initialItem = {
     id: 0, name: "", description: "", status: null, quantity: 0
 };
 
-const initialState = { items: [], categories: [], initialItem, isLoading: false, modal: false };
+const initialState = { items: [], categories: [], initialItem, isLoading: false, modal: false , error: "" };
 
 export const itemReducers = (state = initialState, action) => {
     const { type, payload } = action;
@@ -142,11 +143,20 @@ export const itemReducers = (state = initialState, action) => {
                 isLoading: true,
                 modal: false
             }
-        case ITEM_ACTION_FAIL:
+        case ITEM_ACTION_FAIL: {
+            const error = payload;
             return {
                 ...state,
                 isLoading: false,
-                modal: false
+                modal: false,
+                error: error
+            }
+        }
+        case HIDE_ERROR:
+            return {
+                ...state,
+                isLoading: false,
+                error: ""
             }
         default:
             return state;

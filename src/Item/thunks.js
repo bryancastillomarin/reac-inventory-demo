@@ -26,10 +26,12 @@ export const getItemsFilteredRequest = (item = { category: {id: 0}, status: true
             }
         });
         const items = await response.json();
+        if(isResponseError(items))
+            throw new Error(items.message);
         await getActiveCategoriesRequest()(dispatch);
         dispatch(getItemsFiltered(items));
     } catch(error) {
-        dispatch(itemActionFail());
+        dispatch(itemActionFail(error.message));
     }
 };
 
@@ -41,9 +43,11 @@ const getActiveCategoriesRequest = () => async (dispatch) => {
             }
         });
         const categories = await response.json();
+        if(isResponseError(categories))
+            throw new Error(categories.message);
         dispatch(getActiveCategories(categories));
     } catch(error) {
-        dispatch(itemActionFail());
+        dispatch(itemActionFail(error.message));
     }
 };
 
@@ -59,9 +63,11 @@ export const updateStatusItemRequest = (item) => async (dispatch) => {
             body
         });
         const updatedItem = await response.json();
+        if(isResponseError(updatedItem))
+            throw new Error(updatedItem.message);
         dispatch(updateStatusItem(updatedItem));
     } catch(error) {
-        dispatch(itemActionFail());
+        dispatch(itemActionFail(error.message));
     }
 };
 
@@ -77,9 +83,11 @@ export const updateQuantityItemRequest = (item) => async (dispatch) => {
             body
         });
         const updatedItem = await response.json();
+        if(isResponseError(updatedItem))
+            throw new Error(updatedItem.message);
         dispatch(updateQuantityItem(updatedItem));
     } catch(error) {
-        dispatch(itemActionFail());
+        dispatch(itemActionFail(error.message));
     }
 };
 
@@ -95,9 +103,11 @@ export const deleteItemRequest = (item) => async (dispatch) => {
             body
         });
         const deletedItem = await response.json();
+        if(isResponseError(deletedItem))
+            throw new Error(deletedItem.message);
         dispatch(deleteItem(deletedItem));
     } catch(error) {
-        dispatch(itemActionFail());
+        dispatch(itemActionFail(error.message));
     }
 };
 
@@ -126,9 +136,11 @@ export const createItemRequest = (item) => async dispatch => {
             body
         });
         const createdItem = await response.json();
+        if(isResponseError(createdItem))
+            throw new Error(createdItem.message);
         dispatch(createItem(createdItem));
     } catch(error) {
-        dispatch(itemActionFail());
+        dispatch(itemActionFail(error.message));
     }
 };
 
@@ -144,9 +156,11 @@ export const updateItemRequest = (item) => async dispatch => {
             body
         });
         const updatedItem = await response.json();
+        if(isResponseError(updatedItem))
+            throw new Error(updatedItem.message);
         dispatch(updateItem(updatedItem));
     } catch(error) {
-        dispatch(itemActionFail());
+        dispatch(itemActionFail(error.message));
     }
 };
 
@@ -155,9 +169,13 @@ export const getItemRequest = (item) => async dispatch => {
         dispatch(itemActionInProgress());
         const response = await fetch(`http://localhost:8080/api/item/details/${item.category.id}/${item.id}`);
         const gettedItem = await response.json();
+        if(isResponseError(gettedItem))
+            throw new Error(gettedItem.message);
         dispatch(getItem(gettedItem));
         dispatch(changeTitle(TITLE_ITEM));
     } catch(error) {
-        dispatch(itemActionFail());
+        dispatch(itemActionFail(error.message));
     }
-}
+};
+
+const isResponseError = json => json.timestamp && json.message;

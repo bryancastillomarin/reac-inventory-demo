@@ -6,7 +6,8 @@ import {
     updateStatusCategory,
     categoryActionInProgress,
     categoryActionFail,
-    newCategory
+    newCategory,
+    hideError
 } from "./actions";
 
 import { changeTitle } from "../Menu/actions";
@@ -21,9 +22,11 @@ export const getCategoriesFilteredRequest = (state = true) => async (dispatch) =
             }
         });
         const categories = await response.json();
+        if(responseIsError(categories))
+            throw new Error(categories.message);
         dispatch(getCategoriesFiltered(categories));
     } catch(error) {
-        dispatch(categoryActionFail());
+        dispatch(categoryActionFail(error.message));
     }
 };
 
@@ -39,9 +42,11 @@ export const createCategoryRequest = (category) => async (dispatch) => {
             body
         });
         const createdCategory = await response.json();
+        if(responseIsError(createdCategory))
+            throw new Error(createdCategory.message);
         dispatch(createCategory(createdCategory));
     } catch(error) {
-        dispatch(categoryActionFail());
+        dispatch(categoryActionFail(error.message));
     }
 };
 
@@ -57,9 +62,11 @@ export const updateCategoryRequest = (category) => async (dispatch) => {
             body
         });
         const updatedCategory = await response.json();
+        if(responseIsError(updatedCategory))
+            throw new Error(updatedCategory.message);
         dispatch(updateCategory(updatedCategory));
     } catch(error) {
-        dispatch(categoryActionFail);
+        dispatch(categoryActionFail(error.message));
     }
 }
 
@@ -75,9 +82,11 @@ export const updateStatusCategoryRequest = (category) => async (dispatch) => {
             body
         });
         const updatedCategory = await response.json();
+        if(responseIsError(updateCategory))
+            throw new Error(updateCategory.message);
         dispatch(updateStatusCategory(updatedCategory));
     } catch(error) {
-        dispatch(categoryActionFail);
+        dispatch(categoryActionFail(error.message));
     }
 }
 
@@ -86,13 +95,21 @@ export const getCategoryRequest = (id) => async (dispatch) => {
         dispatch(categoryActionInProgress());
         const response = await fetch(`http://localhost:8080/api/category/details/${id}`);
         const category = await response.json();
+        if(responseIsError(category))
+            throw new Error(category.message);
         dispatch(getCategory(category));
         dispatch(changeTitle(TITLE_CATEGORY));
     } catch(error) {
-        dispatch(categoryActionFail());
+        dispatch(categoryActionFail(error.message));
     }
 }
 
 export const openNewCategoryForm = () => dispatch => {
     dispatch(newCategory());
 }
+
+export const hideMessageError = () => dispatch => {
+    dispatch(hideError());
+}
+
+const responseIsError = json => json.timestamp && json.message;
